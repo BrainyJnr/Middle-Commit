@@ -1,0 +1,37 @@
+import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:amazing/utilis/constants/sizes.dart';
+
+
+class fProfileMenu extends StatelessWidget {
+  const fProfileMenu({
+    super.key,
+    this.icon = Iconsax.arrow_right_34,
+    required this.onPressed,
+    required this.title,
+   // required this.value,
+
+  });
+  final IconData icon;
+  final VoidCallback onPressed;
+  final String title;
+      //value;
+
+
+  @override
+  Widget build(BuildContext context) {
+  //  final controller = Get.put(UserController());
+    return GestureDetector(
+        onTap: onPressed,
+        child: Padding(padding:  const EdgeInsets.symmetric(vertical: fSizes.spaceBtwItems / 1.5),
+
+          child: Row(
+            children: [
+              Expanded(flex: 3, child: Text(title,style: Theme.of(context).textTheme.labelLarge,overflow: TextOverflow.ellipsis,)),
+            //  Expanded(flex: 5, child: Text(value,style: Theme.of(context).textTheme.labelMedium,overflow: TextOverflow.ellipsis,)),
+              Expanded(child: Icon(icon,size: 18,))
+            ],
+          ),
+        ));
+  }
+}
