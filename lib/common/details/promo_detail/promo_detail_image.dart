@@ -7,10 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:amazing/utilis/device/device_utility.dart';
+import 'package:flutter/scheduler.dart';
 
 import '../../../../../common/appbar/fApp_bar.dart';
 import '../../../../../common/widgets/icons/f_circular_icon.dart';
-
+import '../../../extraction/favorite_extraction/favorite_icon.dart';
 
 class PromoDetailImage extends StatelessWidget {
   const PromoDetailImage({
@@ -24,37 +25,46 @@ class PromoDetailImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = fHelperFunctions.isDarkMode(context);
     final controller = Get.put(PromoImageController());
-    final images = controller.getPromoImage(promo);
-    return Container(
-        child: Stack(
-          children: [
-            /// Main Large Image
-            SizedBox(
-                height: 260,
-                child: Padding(
-                    padding: const EdgeInsets.all(1),
-                    child: Center(child: Obx(() {
-                      final images = controller.selectedPromoImage.value;
-                      return CachedNetworkImage(
-                        imageUrl: images,
-                        progressIndicatorBuilder: (_, __, downloadProgress) =>
-                            CircularProgressIndicator(value: downloadProgress.progress,color: dark ? fColors.black : fColors.error,
-                            ),
-                        fit: BoxFit.cover,
-                        width: fDeviceUtilis.getScreenWidth(context),
-                      );
-                    })))),
 
-            fAppBar(
-              showBackArrow: true,
-              actions: [
-                fCircularIcon(
-                  icon: Iconsax.heart5,
-                  color: dark ? fColors.black : fColors.error,
-                )
-              ],
-            )
-          ],
-        ));
+    // Defer the state change to after the widget is built
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      controller.getPromoImages(promo);
+    });
+
+    return Container(
+      child: Stack(
+        children: [
+          /// Main Large Image
+          SizedBox(
+            height: 260,
+            child: Padding(
+              padding: const EdgeInsets.all(1),
+              child: Center(
+                child: Obx(() {
+                  final images = controller.selectedPromoImage.value;
+                  return CachedNetworkImage(
+                    imageUrl: images,
+                    progressIndicatorBuilder: (_, __, downloadProgress) =>
+                        CircularProgressIndicator(
+                          value: downloadProgress.progress,
+                          color: dark ? Colors.transparent : Colors.transparent,
+                        ),
+                    fit: BoxFit.cover,
+                    width: fDeviceUtilis.getScreenWidth(context),
+                  );
+                }),
+              ),
+            ),
+          ),
+
+          fAppBar(
+            showBackArrow: true,
+            actions: [
+              fcircular_favorite_icon(dark: dark, productId: promo.id),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../extraction/favorite_extraction/favorite_icon.dart';
+import '../../features/shop/screens/cart_items/widget/cart/cake_add_to_cart.dart';
 import '../container/fContainer.dart';
 import '../food_price/food_price.dart';
 import '../widgets/icons/f_circular_icon.dart';
@@ -25,8 +27,7 @@ class Cakes extends StatelessWidget {
     final controller = Cake_Controller.instance;
     return SingleChildScrollView(
         child: GestureDetector(
-            onTap: () =>
-                Get.to(() => CakeDetailScreen(cake: cakes)),
+            onTap: () => Get.to(() => CakeDetailScreen(cake: cakes)),
             child: Container(
                 width: 150,
                 height: 240,
@@ -40,18 +41,18 @@ class Cakes extends StatelessWidget {
                 child: Column(children: [
                   /// --- Thumbnail, Wishist Button
                   fContainer(
-                    height: 140,
-                    backgroundColor: dark ? fColors.black : fColors.white,
+                      height: 140,
+                      backgroundColor: dark ? fColors.black : fColors.white,
 
-                    //padding: EdgeInsets.all(fSizes.sm),
-                    // backgroundColor: fColors.light,
-                    child: Stack(
-                      children: [
+                      //padding: EdgeInsets.all(fSizes.sm),
+                      // backgroundColor: fColors.light,
+                      child: Stack(children: [
                         /// ---- Thumbnail Image
                         fBannerImage(
                           height: 130,
                           width: 350,
                           fit: BoxFit.cover,
+                          backgroundColor: dark ? fColors.grey.withOpacity(0.1) : Colors.grey[100]!,
                           image: cakes.image,
                           isNetworkImage: true,
                         ),
@@ -60,13 +61,8 @@ class Cakes extends StatelessWidget {
                         Positioned(
                             top: 0,
                             right: 0,
-                            child: fCircularIcon(
-                              icon: Iconsax.heart5,
-                              color: dark ? fColors.black : fColors.error,
-                            ))
-                      ],
-                    ),
-                  ),
+                            child: fcircular_favorite_icon(dark: dark,productId: cakes.id,))
+                      ])),
 
                   /// --- Details
                   Padding(
@@ -100,24 +96,10 @@ class Cakes extends StatelessWidget {
                           ])),
                   Row(
                     children: [
-                      Container(
-                        alignment: Alignment.center,
-                        width: 140,
-                        height: 30,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                              color: dark ? fColors.error : fColors.error,
-                            ),
-                            borderRadius: BorderRadius.circular(6),
-                          color: dark ? fColors.black : fColors.white,
-                        ),
-                        child: const Text(
-                          "Add to bag",
-                          style: TextStyle(),
-                        ),
-                      )
+                      cake_add_cart(dark: dark, cake: cakes,)
                     ],
                   ),
                 ]))));
   }
 }
+

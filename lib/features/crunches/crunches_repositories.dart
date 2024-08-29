@@ -27,4 +27,23 @@ class CrunchesRepository extends GetxController {
       throw "mmmmmmmmm$e";
 
     }
-  }}
+  }
+  /// Get Products based on the Query
+  Future<List<CrunchesModel>> getFavoriteFoods(List<String> productIds) async {
+    try {
+      final snapshot = await _db
+          .collection("Crunches")
+          .where(FieldPath.documentId, whereIn: productIds)
+          .get();
+      return snapshot.docs
+          .map((querySnapshot) => CrunchesModel.fromSnapshot(querySnapshot))
+          .toList();
+    } on FirebaseException catch (e) {
+      throw "aaaaaaaaaaaaaaaaaaaaaa";
+    } on PlatformException catch (e) {
+      throw "vvvvvvvvvvvvvvvvvvv";
+    } catch (e) {
+      throw "wwwww$e";
+    }
+  }
+}

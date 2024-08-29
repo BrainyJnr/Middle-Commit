@@ -58,6 +58,10 @@ dependencies:
   typed_data: ^1.3.2
   intl: ^0.19.0
   fluttertoast: ^8.2.6
+  rxdart: ^0.27.2
+  async: ^2.8.2
+
+
 
 
 
@@ -76,6 +80,8 @@ dependencies:
   mailer: ^6.1.2
   intl_phone_field: ^3.0.1
   firebase_database: ^11.0.4
+  uuid: ^4.4.2
+  collection: ^1.18.0
 
 
 
@@ -129,7 +135,7 @@ flutter:
     - assets/images/drinks/
     - assets/icons/
     - assets/loaders/Animation - 1717608048132.gif
-    - assets/loaders/
+
 
   #   - images/a_dot_ham.jpeg
 

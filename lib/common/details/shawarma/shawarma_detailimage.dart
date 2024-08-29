@@ -1,16 +1,13 @@
 import 'package:amazing/common/details/shawarma/shawarma_imagecontroller.dart';
 import 'package:amazing/features/fetching/model/sharwama_model.dart';
-import 'package:amazing/utilis/constants/colors.dart';
 import 'package:amazing/utilis/helpers/helper_functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:amazing/utilis/device/device_utility.dart';
 
 import '../../../../../common/appbar/fApp_bar.dart';
-import '../../../../../common/widgets/icons/f_circular_icon.dart';
-
+import '../../../extraction/favorite_extraction/favorite_icon.dart';
 
 class ShawarmaDetailImage extends StatelessWidget {
   const ShawarmaDetailImage({
@@ -25,6 +22,7 @@ class ShawarmaDetailImage extends StatelessWidget {
     final dark = fHelperFunctions.isDarkMode(context);
     final controller = Get.put(ShawarmaImageController());
     final images = controller.getshawarmaImage(warma);
+
     return Container(
         child: Stack(
           children: [
@@ -38,7 +36,9 @@ class ShawarmaDetailImage extends StatelessWidget {
                       return CachedNetworkImage(
                         imageUrl: images,
                         progressIndicatorBuilder: (_, __, downloadProgress) =>
-                            CircularProgressIndicator(value: downloadProgress.progress,color: dark ? fColors.black : fColors.error,
+                            CircularProgressIndicator(
+                              value: downloadProgress.progress,
+                              color: dark ? Colors.transparent : Colors.transparent,
                             ),
                         fit: BoxFit.cover,
                         width: fDeviceUtilis.getScreenWidth(context),
@@ -48,12 +48,9 @@ class ShawarmaDetailImage extends StatelessWidget {
             fAppBar(
               showBackArrow: true,
               actions: [
-                fCircularIcon(
-                  icon: Iconsax.heart5,
-                  color: dark ? fColors.black : fColors.error,
-                )
+                fcircular_favorite_icon(dark: dark, productId: warma.id,)
               ],
-            )
+            ),
           ],
         ));
   }

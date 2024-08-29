@@ -6,13 +6,16 @@ class FoodModel {
   double? price;
   String title;
   bool? Foodtype;
+  //final bool? isAvailable; // Make sure this matches the type of your data
+
 
   //BrandModel? brand;
   String? description;
 
   // List<ProductVariationModel>? productVariations;
 
-  FoodModel({
+  FoodModel( {
+   // this.isAvailable,
     required this.image,
     required this.id,
     this.Foodtype,
@@ -54,6 +57,8 @@ class FoodModel {
       image: data["Image"],
       price: double.parse((data["Price"] ?? 0.0).toString()),
       description: data["Description"],
+      //isAvailable: data['isAvailable'] == true,
+
     );
   }
 
@@ -63,10 +68,20 @@ class FoodModel {
     return FoodModel(
       id: document.id,
       title: data["Title"],
-      Foodtype: data["FoodType"] ?? false,
+   //   Foodtype: data["FoodType"] ?? false,
       image: data["Image"],
       price: double.parse((data["Price"] ?? 0.0).toString()),
       description: data["Description"],
+      //isAvailable: data['isAvailable'] == true, // Adjusted this line
+
+    );
+  }
+
+  factory FoodModel.fromData(Map<String, dynamic> data) {
+    return FoodModel(
+      title: data['Title'] ?? '',
+      price: data['Price']?.toDouble() ?? 0.0, image: data["Image"], id: ""
+      // Parse other fields
     );
   }
 }

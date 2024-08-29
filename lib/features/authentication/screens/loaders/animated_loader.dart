@@ -1,5 +1,4 @@
 import 'package:amazing/utilis/constants/colors.dart';
-import 'package:amazing/utilis/constants/fsize.dart';
 import 'package:flutter/material.dart';
 
 
@@ -37,18 +36,20 @@ class fAnimationLoaderWidget extends StatelessWidget {
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Image(image: AssetImage("assets/loaders/Animation - 1717608048132.gif")),
+              Image(image: AssetImage("assets/loaders/Animation - 1717608048132.gif")),
               // Lottie.asset(animation,width: MediaQuery.of(context).size.width * 0.8),
-               SizedBox(height: fSizes.defaultSpace,),
-              Text(text,style: Theme.of(context).textTheme.bodyMedium,textAlign: TextAlign.center,),
-               SizedBox(height: fSizes.defaultSpace,),
-              showAction ? SizedBox(width: 250,
-                child: OutlinedButton(
+              const SizedBox(height: 24.0),
+              Text(text,style: Theme.of(context).textTheme.titleSmall,textAlign: TextAlign.center,),
+              const SizedBox(height: 30.0),
+              showAction ? SizedBox(width: 250,height: 50,
+
+                child: ElevatedButton(
                   onPressed: onActionPressed,
-                  style: OutlinedButton.styleFrom(backgroundColor: fColors.dark),
+                  style: OutlinedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      backgroundColor: fColors.dark),
                   child: Text(
                     actionText!,
-                    style: Theme.of(context).textTheme.bodySmall!.apply(color: fColors.light),
+                    style: Theme.of(context).textTheme.bodyMedium!.apply(color: fColors.light),
                   ),
                 ),
               )

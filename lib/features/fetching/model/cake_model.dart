@@ -6,6 +6,8 @@ class CakeModel {
   double? price;
   String title;
   bool? Caketype;
+  final bool? isAvailable; // Make sure this matches the type of your data
+
 
   //BrandModel? brand;
   String? description;
@@ -13,6 +15,7 @@ class CakeModel {
   // List<ProductVariationModel>? productVariations;
 
   CakeModel({
+    this.isAvailable,
     required this.image,
     required this.id,
     this.Caketype,
@@ -54,6 +57,7 @@ class CakeModel {
       image: data["Image"],
       price: double.parse((data["Price"] ?? 0.0).toString()),
       description: data["Description"],
+      isAvailable: data['isAvailable'] == true,
     );
   }
 
@@ -67,6 +71,8 @@ class CakeModel {
       image: data["Image"],
       price: double.parse((data["Price"] ?? 0.0).toString()),
       description: data["Description"],
+      isAvailable: data['isAvailable'] == true, // Adjusted this line
+
     );
   }
 }

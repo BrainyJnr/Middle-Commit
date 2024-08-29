@@ -1,23 +1,31 @@
+import 'package:amazing/features/fetching/controller/all_controller.dart';
+import 'package:amazing/features/fetching/model/all_model.dart';
 import 'package:amazing/utilis/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:amazing/utilis/constants/colors.dart';
 import 'package:amazing/utilis/constants/image_strings.dart';
 import 'package:amazing/utilis/constants/sizes.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../../extraction/favorite_extraction/favorite_icon.dart';
 import '../../container/rounded_container.dart';
 import '../../food_price/food_price.dart';
 import '../icons/f_circular_icon.dart';
 import '../image/all_in_crunches_images.dart';
 import '../title_text/food_title_text.dart';
+import 'favorite_add_to_cart.dart';
 
 class favorite2 extends StatelessWidget {
   const favorite2({
-    super.key,
+    super.key, required this.all,
   });
+
+  final AllModel all;
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(All_Controller());
     final dark = fHelperFunctions.isDarkMode(context);
     return SizedBox(
       width: 100,
@@ -39,29 +47,29 @@ class favorite2 extends StatelessWidget {
               padding: const EdgeInsets.all(fSizes.sm),
               backgroundColor: dark ? fColors.black : fColors.white,
 
-              child: const Stack(children: [
+              child:  Stack(children: [
 
                 /// Thumbnail Image
                 fAllInCrunches(
                     width: 85,
                     fit: BoxFit.cover,
-                    image: fImages.OfadaRice),
+                    image: all.image,isNetworkImage: true,),
               ]),
             ),
             Column(children: [
-              const SizedBox(
+               SizedBox(
                   width: 200,
                   child: Padding(
                     padding: EdgeInsets.only(
                         top: fSizes.sm, left: fSizes.sm),
                     child: fFoodTitleText(
-                      title: "Moi Moi (wrapped)",
+                      title: all.title,
                     ),
                   )),
-              const Padding(
+               Padding(
                 padding: EdgeInsets.only(right: 140),
                 child: foodprice(
-                  price: "1000",
+                  price: controller.getAllPrice(all),
                 ),
               ),
               Padding(
@@ -69,28 +77,15 @@ class favorite2 extends StatelessWidget {
                   child: Row(
                       children: [
                         Padding(padding: const EdgeInsets.only(left: 6),
-                   child:      Container(
-
-                          alignment: Alignment.center,
-                          width: 170,
-                          height: 30,
-                          decoration: BoxDecoration(
-                              border: Border.all(color: fColors.error),
-                              borderRadius: BorderRadius.circular(6),
-                            color: dark ? fColors.black : fColors.white,
-                          ),
-
-                          child: const Text(
-                            "Add to bag",
-                            style: TextStyle(color: fColors.error),
-                          ),)
+                   child:      favorite_add_to_cart(dark: dark, all: all,)
                         ), const SizedBox(width: 1,),
-                        fCircularIcon(
-                          icon: Iconsax.heart5,color: dark ? fColors.black : fColors.white,
-                        )
-                         ]))
-            ])
-          ])),
+                        fcircular_favorite_icon(dark: dark,productId: all.id,)])
+
+              )
+                         ])])
+      )
+
     );
   }
 }
+

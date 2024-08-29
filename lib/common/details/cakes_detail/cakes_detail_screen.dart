@@ -17,31 +17,35 @@ class CakeDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(CakeImageController());
+    // Use Get.find() to retrieve the existing controller instance
+    final CakeImageController controller = Get.put(CakeImageController());
+
+    // Fetch images from the controller
     final images = controller.getCakeImages(cake);
+
     return Scaffold(
       bottomNavigationBar: CakeBottomAddToCart(cake: cake),
       body: SingleChildScrollView(
-          child: Column(children: [
-            CakeDetailImage(cake: cake,),
+        child: Column(
+          children: [
+            CakeDetailImage(cake: cake),
 
-            /// --- Detail Name
+            // Detail Name
             const Padding(padding: EdgeInsets.only(bottom: 5)),
 
-            /// --- Price,Title
+            // Price, Title
             CakeMetaData(cake: cake),
-            const SizedBox(
-              height: 6,
-            ),
+            const SizedBox(height: 6),
+
+            // Section Heading
             const fSectionHeading(title: "Description", showActionButton: false),
             const SizedBox(height: 5),
+
+            // Description
             Padding(
-              padding: const EdgeInsets.only(
-                left: 20,
-              ),
+              padding: const EdgeInsets.only(left: 20),
               child: ReadMoreText(
                 cake.description ?? "",
-                //style: TextStyle(color: Colors.black54),
                 trimLines: 2,
                 trimMode: TrimMode.Line,
                 trimCollapsedText: "Show more",
@@ -54,15 +58,14 @@ class CakeDetailScreen extends StatelessWidget {
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                 ),
-              ),),
-
-            const SizedBox(
-              height: fSizes.spaceBtwSections,
+              ),
             ),
 
-
-
-          ])),
+            // Spacer
+            const SizedBox(height: fSizes.spaceBtwSections),
+          ],
+        ),
+      ),
     );
   }
 }

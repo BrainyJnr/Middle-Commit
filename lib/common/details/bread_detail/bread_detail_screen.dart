@@ -18,31 +18,35 @@ class BreadDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(BreadImageController());
-   // final images = controller.getBreadImages(bread);
+    // Retrieve the existing controller instance
+    final BreadImageController controller = Get.put(BreadImageController());
+
+    // Uncomment if you need to use images
+    // final images = controller.getBreadImages(bread);
+
     return Scaffold(
       bottomNavigationBar: BreadBottomAddToCart(bread: bread),
       body: SingleChildScrollView(
-          child: Column(children: [
-            BreadDetailImage(bread: bread,),
+        child: Column(
+          children: [
+            BreadDetailImage(bread: bread),
 
-            /// --- Detail Name
+            // Detail Name
             const Padding(padding: EdgeInsets.only(bottom: 5)),
 
-            /// --- Price,Title
+            // Price, Title
             BreadMetaData(bread: bread),
-            const SizedBox(
-              height: 6,
-            ),
+            const SizedBox(height: 6),
+
+            // Section Heading
             const fSectionHeading(title: "Description", showActionButton: false),
             const SizedBox(height: 5),
+
+            // Description
             Padding(
-              padding: const EdgeInsets.only(
-                left: 20,
-              ),
+              padding: const EdgeInsets.only(left: 20),
               child: ReadMoreText(
                 bread.description ?? "",
-                //style: TextStyle(color: Colors.black54),
                 trimLines: 2,
                 trimMode: TrimMode.Line,
                 trimCollapsedText: "Show more",
@@ -55,15 +59,14 @@ class BreadDetailScreen extends StatelessWidget {
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                 ),
-              ),),
-
-            const SizedBox(
-              height: fSizes.spaceBtwSections,
+              ),
             ),
 
-
-
-          ])),
+            // Spacer
+            const SizedBox(height: fSizes.spaceBtwSections),
+          ],
+        ),
+      ),
     );
   }
 }

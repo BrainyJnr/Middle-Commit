@@ -67,6 +67,8 @@ class ProteinModel {
       image: data["Image"],
       price: double.parse((data["Price"] ?? 0.0).toString()),
       description: data["Description"],
+
+
     );
   }
 }

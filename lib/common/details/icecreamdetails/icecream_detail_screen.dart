@@ -18,30 +18,32 @@ class IceDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(IceCreamImageController());
+    // Retrieve the existing IceCreamImageController instance
+    final IceCreamImageController controller = Get.put(IceCreamImageController());
+
     return Scaffold(
       bottomNavigationBar: IceBottomAddToCart(ice: ice),
       body: SingleChildScrollView(
-          child: Column(children: [
-            IceDetailImage(ice: ice,),
+        child: Column(
+          children: [
+            IceDetailImage(ice: ice),
 
-            /// --- Detail Name
+            // Detail Name
             const Padding(padding: EdgeInsets.only(bottom: 5)),
 
-            /// --- Price,Title
+            // Price, Title
             IceMetaData(ice: ice),
-            const SizedBox(
-              height: 6,
-            ),
+            const SizedBox(height: 6),
+
+            // Section Heading
             const fSectionHeading(title: "Description", showActionButton: false),
             const SizedBox(height: 5),
+
+            // Description
             Padding(
-              padding: const EdgeInsets.only(
-                left: 20,
-              ),
+              padding: const EdgeInsets.only(left: 20),
               child: ReadMoreText(
                 ice.description ?? "",
-                //style: TextStyle(color: Colors.black54),
                 trimLines: 2,
                 trimMode: TrimMode.Line,
                 trimCollapsedText: "Show more",
@@ -54,15 +56,14 @@ class IceDetailScreen extends StatelessWidget {
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                 ),
-              ),),
-
-            const SizedBox(
-              height: fSizes.spaceBtwSections,
+              ),
             ),
 
-
-
-          ])),
+            // Spacer
+            const SizedBox(height: fSizes.spaceBtwSections),
+          ],
+        ),
+      ),
     );
   }
 }

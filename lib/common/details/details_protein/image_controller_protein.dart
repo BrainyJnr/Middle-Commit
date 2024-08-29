@@ -1,5 +1,5 @@
-import 'package:amazing/features/personalization/models/protein_model.dart';
 import 'package:get/get.dart';
+import 'package:amazing/features/personalization/models/protein_model.dart';
 
 class ProteinImageController extends GetxController {
   static ProteinImageController get instance => Get.find();
@@ -7,20 +7,26 @@ class ProteinImageController extends GetxController {
   /// Variables
   RxString selectedProteinImage = "".obs;
 
-  /// -- Get All Images from product and Variations
-  List<String> getProtineImages(ProteinModel protein) {
-    // Use Set to add unique Images only
+  /// Get all images from the protein model
+  List<String> getProteinImages(ProteinModel protein) {
+    // Use Set to ensure unique images only
     Set<String> images = {};
 
-    // Load thumbnail image
-    images.add(protein.image);
+    // Check if the protein image is not null or empty
+    if (protein.image != null && protein.image.isNotEmpty) {
+      // Load thumbnail image
+      images.add(protein.image);
 
-    /// Assign Thumbnail as Selected Image
-    selectedProteinImage.value = protein.image;
+      // Assign Thumbnail as Selected Image
+      selectedProteinImage.value = protein.image;
+    }
 
-    // Get all images from the Product Model if not null.
-    //if (food.image != null) {
-    //images.addAll(food.image!);
+    // Optionally, add more images if available in the ProteinModel
+    // Example: if (protein.images != null) {
+    //   images.addAll(protein.images);
+    // }
+
+    // Return images as a list
     return images.toList();
   }
 }

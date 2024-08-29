@@ -6,7 +6,7 @@ class PromoModel {
   double? price;
   String title;
   bool? promotype;
-
+  final bool? isAvailable; // Make sure this matches the type of your data
   //BrandModel? brand;
   String? description;
 
@@ -20,6 +20,7 @@ class PromoModel {
     this.price,
     // this.brand,
     this.description,
+    this.isAvailable,
     // this.productVariations,
   });
 
@@ -54,6 +55,7 @@ class PromoModel {
       image: data["Image"],
       price: double.parse((data["Price"] ?? 0.0).toString()),
       description: data["Description"],
+      isAvailable: data['isAvailable'] == true,
     );
   }
 
@@ -67,6 +69,7 @@ class PromoModel {
       image: data["Image"],
       price: double.parse((data["Price"] ?? 0.0).toString()),
       description: data["Description"],
+      isAvailable: data['isAvailable'] == true, // Adjusted this line
     );
   }
 }

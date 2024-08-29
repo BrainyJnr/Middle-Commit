@@ -5,6 +5,7 @@ class PastryModel {
   String image;
   double? price;
   String title;
+  final bool? isAvailable; // Make sure this matches the type of your data
   bool? Pastrytype;
 
   //BrandModel? brand;
@@ -13,6 +14,7 @@ class PastryModel {
   // List<ProductVariationModel>? productVariations;
 
   PastryModel({
+    this.isAvailable,
     required this.image,
     required this.id,
     this.Pastrytype,
@@ -54,6 +56,8 @@ class PastryModel {
       image: data["Image"],
       price: double.parse((data["Price"] ?? 0.0).toString()),
       description: data["Description"],
+      isAvailable: data['isAvailable'] == true,
+
     );
   }
 
@@ -67,6 +71,8 @@ class PastryModel {
       image: data["Image"],
       price: double.parse((data["Price"] ?? 0.0).toString()),
       description: data["Description"],
+      isAvailable: data['isAvailable'] == true, // Adjusted this line
+
     );
   }
 }

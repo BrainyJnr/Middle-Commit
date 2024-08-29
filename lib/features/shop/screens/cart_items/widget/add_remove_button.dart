@@ -6,8 +6,11 @@ import '../../../../../common/widgets/icons/cart_circular_icon.dart';
 
 class fProductQuatityaddandremovebutton extends StatelessWidget {
   const fProductQuatityaddandremovebutton({
-    super.key,
+    super.key, required this.quantity, this.add, this.remove,
   });
+
+  final int quantity;
+  final VoidCallback? add, remove;
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +31,11 @@ class fProductQuatityaddandremovebutton extends StatelessWidget {
                   icon: Iconsax.minus,
                   border: Border.all(color: Colors.grey.withOpacity(0.3)),
                   color: Colors.black,
+                  onPressed: remove,
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  "2",
+                  quantity.toString(),
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
                 SizedBox(
@@ -45,6 +49,7 @@ class fProductQuatityaddandremovebutton extends StatelessWidget {
                   backgroundColor: Colors.white,
                   border: Border.all(color: Colors.grey.withOpacity(0.3)),
                   color: Colors.black,
+                  onPressed: add,
                 )
               ])])
     );

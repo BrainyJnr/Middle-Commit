@@ -18,30 +18,32 @@ class ShawarmaDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ShawarmaImageController());
+    // Retrieve the existing ShawarmaImageController instance
+    final ShawarmaImageController controller = Get.put(ShawarmaImageController());
+
     return Scaffold(
       bottomNavigationBar: ShawarmaBottomAddToCart(warma: warma),
       body: SingleChildScrollView(
-          child: Column(children: [
-            ShawarmaDetailImage(warma: warma,),
+        child: Column(
+          children: [
+            ShawarmaDetailImage(warma: warma),
 
-            /// --- Detail Name
+            // Detail Name
             const Padding(padding: EdgeInsets.only(bottom: 5)),
 
-            /// --- Price,Title
+            // Price, Title
             ShawarmaMetaData(warma: warma),
-            const SizedBox(
-              height: 6,
-            ),
+            const SizedBox(height: 6),
+
+            // Section Heading
             const fSectionHeading(title: "Description", showActionButton: false),
             const SizedBox(height: 5),
+
+            // Description
             Padding(
-              padding: const EdgeInsets.only(
-                left: 20,
-              ),
+              padding: const EdgeInsets.only(left: 20),
               child: ReadMoreText(
                 warma.description ?? "",
-                //style: TextStyle(color: Colors.black54),
                 trimLines: 2,
                 trimMode: TrimMode.Line,
                 trimCollapsedText: "Show more",
@@ -54,15 +56,14 @@ class ShawarmaDetailScreen extends StatelessWidget {
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                 ),
-              ),),
-
-            const SizedBox(
-              height: fSizes.spaceBtwSections,
+              ),
             ),
 
-
-
-          ])),
+            // Spacer
+            const SizedBox(height: fSizes.spaceBtwSections),
+          ],
+        ),
+      ),
     );
   }
 }

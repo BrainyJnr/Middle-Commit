@@ -12,39 +12,40 @@ import 'fprotein_meta.dart';
 import 'image_controller_protein.dart';
 
 
-
 class ProteinDetailScreen extends StatelessWidget {
-  const ProteinDetailScreen({super.key, required this.protein});
-
   final ProteinModel protein;
+
+  ProteinDetailScreen({super.key, required this.protein});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ProteinImageController());
-    final images = controller.getProtineImages(protein);
+    final ProteinImageController controller = Get.put(ProteinImageController());
+
+    // Use `WidgetsBinding.instance.addPostFrameCallback` to schedule the data initialization
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final images = controller.getProteinImages(protein);
+      // You can perform additional operations with the images here if needed
+    });
+
     return Scaffold(
       bottomNavigationBar: fProteinBottomAddToCart(protein: protein),
       body: SingleChildScrollView(
-          child: Column(children: [
-            ProteinDetailImage(protein: protein,),
+        child: Column(
+          children: [
+            ProteinDetailImage(protein: protein),
 
-            /// --- Detail Name
+            // Detail Name
             const Padding(padding: EdgeInsets.only(bottom: 5)),
 
-            /// --- Price,Title
+            // Price, Title
             fProtreintMetaData(protein: protein),
-            const SizedBox(
-              height: 6,
-            ),
+            const SizedBox(height: 6),
             const fSectionHeading(title: "Description", showActionButton: false),
             const SizedBox(height: 5),
             Padding(
-              padding: const EdgeInsets.only(
-                left: 20,
-              ),
+              padding: const EdgeInsets.only(left: 20),
               child: ReadMoreText(
                 protein.description ?? "",
-                //style: TextStyle(color: Colors.black54),
                 trimLines: 2,
                 trimMode: TrimMode.Line,
                 trimCollapsedText: "Show more",
@@ -57,15 +58,12 @@ class ProteinDetailScreen extends StatelessWidget {
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                 ),
-              ),),
-
-            const SizedBox(
-              height: fSizes.spaceBtwSections,
+              ),
             ),
-
-
-
-          ])),
+            const SizedBox(height: fSizes.spaceBtwSections),
+          ],
+        ),
+      ),
     );
   }
 }

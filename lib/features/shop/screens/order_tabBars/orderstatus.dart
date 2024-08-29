@@ -1,107 +1,229 @@
+import 'package:amazing/features/shop/screens/order_tabBars/widgets/order_controller.dart';
+import 'package:amazing/features/shop/screens/order_tabBars/widgets/order_model.dart';
 import 'package:amazing/utilis/constants/colors.dart';
-import 'package:amazing/utilis/constants/image_strings.dart';
 import 'package:amazing/utilis/constants/sizes.dart';
 import 'package:amazing/utilis/helpers/helper_functions.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../../common/container/rounded_container.dart';
-import '../../../../common/food_price/food_price.dart';
-import '../../../../common/widgets/image/all_in_crunches_images.dart';
-import '../../../../common/widgets/title_text/food_title_text.dart';
-import '../../../../utilis/constants/enums.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import '../address/address_screen.dart';
 
 class OrderStatusView extends StatelessWidget {
-  final OrderStatus status;
+  final String status;
 
-  const OrderStatusView(this.status, {super.key});
+  const OrderStatusView(this.status, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final OrderStatus status;
-    final dark = fHelperFunctions.isDarkMode(context);
+    final OrderController controller = Get.put(OrderController());
 
     return Scaffold(
-        body: SingleChildScrollView(
-            child: Padding(
-                padding: const EdgeInsets.only(left: 22, top: 10, right: 16),
-                child: Column(children: [
-                  ListView.separated(
-                      shrinkWrap: true,
-                      physics: const ScrollPhysics(),
-                      itemCount: 2,
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(
-                            height: fSizes.spaceBtwItems,
-                          ),
-                      itemBuilder: (_, __) =>
-                          SizedBox(
-                              width: 100,
-                              height: 110,
-                              child: Container(
-                                  width: 320,
-                                  height: 160,
-                                  padding: const EdgeInsets.all(1),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey
-                                        .withOpacity(0.4)),
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: dark ? fColors.black : fColors.white,
-                                  ),
-                                  child: Stack(children: [
+      body: Obx(() {
+        List<OrderModel> orders;
 
-                                    ///  Image
-                                    fRoundedContainer(
-                                      height: 130,
-                                      padding: const EdgeInsets.all(fSizes.sm),
-                                      backgroundColor: dark ? fColors.black : fColors.white,
-                                      child: const fAllInCrunches(
-                                          width: 85,
-                                          height: 120,
-                                          fit: BoxFit.cover,
-                                          image: fImages.ChocolatePlum),
+        switch (status) {
+          case 'Oncoming':
+            orders = controller.oncomingOrders;
+            break;
+          case 'Delivered':
+            orders = controller.deliveredOrders;
+            break;
+          case 'Cancelled':
+            orders = controller.cancelledOrders;
+            break;
+          default:
+            orders = [];
+        }
+
+        if (orders.isEmpty) {
+          return Center(child: Text("No $status orders found"));
+        }
+
+
+
+        return ListView.separated(
+          itemCount: orders.length,
+          separatorBuilder: (context, index) => SizedBox(height: 16),
+          itemBuilder: (context, index) {
+            final order = orders[index];
+            return OrderCard(order: order);
+          },
+        );
+      }),
+    );
+  }
+}
+
+
+
+
+class OrderCard extends StatelessWidget {
+  final OrderModel order;
+
+  const OrderCard({required this.order, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final dark = fHelperFunctions.isDarkMode(context);
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        double containerWidth = constraints.maxWidth * 0.9;
+
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 17),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (order.orderImageUrls.isNotEmpty)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: List.generate(order.orderImageUrls.length, (index) {
+                    final item = order.items[index]; // Each item for its specific image
+                    return Container(
+                      width: containerWidth,
+                      padding: const EdgeInsets.all(1),
+                      margin: const EdgeInsets.only(bottom: 10), // Space between items
+                      decoration: BoxDecoration(
+                        border: Border(top: BorderSide(color: Colors.grey.withOpacity(0.3), ),bottom: BorderSide(color: Colors.grey.withOpacity(0.3))),
+                       // border: Border.all(color: Colors.grey.withOpacity(0.3)),
+                        borderRadius: BorderRadius.circular(5),
+                        color: dark ? fColors.black : fColors.white,
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              // Thumbnail
+                              Container(
+                                height: 100,
+                                width: 85,
+                                padding: const EdgeInsets.all(fSizes.sm),
+                                decoration: BoxDecoration(
+                                  color: dark ? fColors.black : fColors.white,
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(5),
+                                  child: Image.network(
+                                    order.orderImageUrls[index],
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) => Center(
+                                      child: Icon(Icons.error, color: Colors.red),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(top: fSizes.sm),
+                                      child: Text(
+                                        item.title, // Display specific title for each item
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: fSizes.xs),
+                                      child: Text(
+                                        "Price: \u20A6${item.price.toStringAsFixed(0)}", // Display specific price for each item
+                                        style: const TextStyle(color: fColors.error),
+                                      ),
+                                    ),Text(
+                                      order.formattedOrderDate,
+                                      style: TextStyle(
+                                        color: dark ? fColors.white : fColors.black,
+                                        fontStyle: FontStyle.italic,
+                                      ),
                                     ),
 
-                                    /// Title and Price
-                                    Column(children: [
-                                      const SizedBox(
-                                        width: 267,
-                                      ),
-                                      const Padding(
-                                          padding:
-                                          EdgeInsets.only(
-                                              top: 15, left: fSizes.sm),
-                                          child: fFoodTitleText(
-                                              title: "Red Velvet")),
-                                      const Padding(
-                                        padding: EdgeInsets.only(right: 12),
-                                        child: foodprice(
-                                          price: "1000",
-                                        ),
-                                      ), Padding(
-                                          padding:
-                                          const EdgeInsets.only(
-                                              top: 4, left: 0, right: 5),
-                                          child: Text("Delivered", style: Theme
-                                              .of(context)
-                                              .textTheme
-                                              .labelMedium!
-                                              .apply(color: Colors.black54),)
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
 
-                                      ), Padding(
-                                        padding:
-                                        const EdgeInsets.only(
-                                            top: 0, left: 80, bottom: 5),
-                                        child: Text("(2 August 2024 7:45 PM)",
-                                          style: Theme
-                                              .of(context)
-                                              .textTheme
-                                              .labelMedium!
-                                              .apply(color: Colors.black54),),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 5,left: 2,right: 2), // Space above the button
+                          child: Row(
+                            children:[
+                             Container(
+                              height: 37,width: 150,
+                              decoration: BoxDecoration(
+                                color: fColors.error,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: InkWell(
+                                onTap: ()  => Get.to(addresscreen()),
+                                  // Implement the action for the Recorder button
 
+                                // child: Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.cached, color: Colors.white), // Use appropriate icon
+                                    const SizedBox(width: 5),
+                                    const Text(
+                                      "Recorder",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                              Spacer(),
+
+                              Container(
+                                height: 37,width: 150,
+                                decoration: BoxDecoration(
+                                  color: fColors.white,
+                                  borderRadius: BorderRadius.circular(6),
+                                  border: Border.all(color: fColors.error)
+                                ),
+                                child: InkWell(
+                                  onTap: () {
+                                    // Implement the action for the Recorder button
+                                  },
+                                  // child: Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                     // Icon(Icons.cached, color: Colors.white), // Use appropriate icon
+                                      const SizedBox(width: 5),
+                                      const Text(
+                                        "Get help",
+                                        style: TextStyle(color: fColors.error),
                                       ),
-                                    ])
-                                  ])
-                              )
-                          ))
-                ]))));
+                                    ],
+                                  ),
+                                ),
+                              ),
+
+                            ]  ),
+                        ),
+]
+                      ),
+                    );
+                  }),
+                )
+              else
+                Container(
+                  height: 100,
+                  width: containerWidth,
+                  color: Colors.grey[300],
+                  child: Center(
+                    child: Icon(Icons.image_not_supported, color: Colors.grey[600]),
+                  ),
+                ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

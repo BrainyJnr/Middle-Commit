@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../extraction/favorite_extraction/favorite_icon.dart';
+import '../../features/shop/screens/cart_items/widget/cart/protein_add_to_cart.dart';
 import '../container/fContainer.dart';
 import '../food_price/food_price.dart';
 import '../widgets/icons/f_circular_icon.dart';
@@ -18,7 +20,6 @@ class protein extends StatelessWidget {
   const protein({super.key, required this.proteins});
 
   final ProteinModel proteins;
-
 
   @override
   Widget build(BuildContext context) {
@@ -42,15 +43,14 @@ class protein extends StatelessWidget {
           child: Column(children: [
             /// --- Thumbnail, Wishist Button
             fContainer(
-              height: 140,
-              // padding: EdgeInsets.all(fSizes.sm),
-              // backgroundColor: fColors.light,
-              backgroundColor: dark ? fColors.black : fColors.white,
-              child: Stack(
-                children: [
+                height: 140,
+                // padding: EdgeInsets.all(fSizes.sm),
+                // backgroundColor: fColors.light,
+                backgroundColor: dark ? fColors.black : fColors.white,
+                child: Stack(children: [
                   /// ---- Thumbnail Image
                   fBannerImage(
-                    backgroundColor:dark ? fColors.black : fColors.white,
+                    backgroundColor: dark ? fColors.grey.withOpacity(0.1) : Colors.grey[100]!                ,
                     height: 130,
                     width: 350,
                     fit: BoxFit.cover,
@@ -62,13 +62,8 @@ class protein extends StatelessWidget {
                   Positioned(
                       top: 0,
                       right: 0,
-                      child: fCircularIcon(
-                        icon: Iconsax.heart5,
-                        color: dark ? fColors.black : fColors.error,
-                      ))
-                ],
-              ),
-            ),
+                      child: fcircular_favorite_icon(dark: dark,productId: proteins.id,))
+                ])),
 
             /// --- Details
             Padding(
@@ -100,20 +95,7 @@ class protein extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Container(
-                            alignment: Alignment.center,
-                            width: 140,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: fColors.error),
-                              borderRadius: BorderRadius.circular(6),
-                              color: dark ? fColors.darkerGrey : fColors.white,
-                            ),
-                            child: const Text(
-                              "Add to bag",
-                              style: TextStyle(),
-                            ),
-                          )
+                          protein_add_to_cart(dark: dark, protein: proteins)
                         ],
                       ),
                     ]))
@@ -121,3 +103,4 @@ class protein extends StatelessWidget {
     ));
   }
 }
+

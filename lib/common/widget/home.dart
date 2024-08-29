@@ -1,6 +1,7 @@
 import 'package:amazing/common/widget/tabBar.dart';
 import 'package:amazing/features/fetching/controller/category_controller.dart';
 import 'package:amazing/features/shop/shimmereffect/category_shimmer.dart';
+import 'package:amazing/utilis/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,9 @@ class HomeScreen extends StatelessWidget {
     final HomeController tabController = Get.put(HomeController());
     final categoryController = Get.put(CategoryController());
     final ColorChangeController controller = Get.put(ColorChangeController());
-    var screenSize = MediaQuery.of(context).size;
+    final screenSize = MediaQuery.of(context).size;
+    final dark = fHelperFunctions.isDarkMode(context);
+
     return Scaffold(
         body: ScreenUtilInit(
       child: SafeArea(
@@ -39,7 +42,7 @@ class HomeScreen extends StatelessWidget {
                         padding: const EdgeInsets.only(right: 18.0,left: 18.0,bottom: 16.0,top: 16.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: Colors.grey.withOpacity(0.2),
+                          color: Colors.grey.withOpacity(0.1),
                         ),
                         child: Row(children: [
                           Column(
@@ -72,18 +75,18 @@ class HomeScreen extends StatelessWidget {
                                   style:
                                       Theme.of(context).textTheme.titleMedium,
                                 ),
-                                const SizedBox(height: 4),
-                                const Text(
+                                 const SizedBox(height: 4),
+                                 Text(
                                   "Amazing Fried Chicken, 262",
                                   style: TextStyle(
-                                    color: Colors.black54,
+                                    color: dark ? Colors.white : Colors.black54,
                                     fontSize: 12,
                                   ),
                                 ),
-                                const Text(
+                                 Text(
                                   "Agbani Road, Enugu",
                                   style: TextStyle(
-                                    color: Colors.black54,
+                                    color: dark ? Colors.white : Colors.black54,
                                     fontSize: 12,
                                   ),
                                 ),

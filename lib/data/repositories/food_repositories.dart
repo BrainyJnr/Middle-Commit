@@ -26,4 +26,8 @@ class foodRepository extends GetxController {
       throw "mmmmmmmmm$e";
 
     }
-  }}
+  }
+
+
+
+}

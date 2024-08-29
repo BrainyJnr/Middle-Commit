@@ -21,7 +21,7 @@ class Drink_all_in_crunches extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
     child: GestureDetector(
-        onTap: () => Get.to(() => AllInCruchiesDetailScreen(crunchy: crunchy)),
+        onTap: () => Get.to(() => AllInCrunchiesDetailScreen(crunchy: crunchy)),
         child: Container(
           width: fDeviceUtilis.getScreenWidth(context),
           height: 250,

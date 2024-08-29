@@ -11,39 +11,39 @@ import 'package:readmore/readmore.dart';
 import 'allincrunchies_bottom_add_to_cart.dart';
 
 
-
-
-class AllInCruchiesDetailScreen extends StatelessWidget {
-  const AllInCruchiesDetailScreen({super.key, required this.crunchy});
+class AllInCrunchiesDetailScreen extends StatelessWidget {
+  const AllInCrunchiesDetailScreen({super.key, required this.crunchy});
 
   final CrunchesModel crunchy;
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(AllInCrunchiesImageController());
+    // Retrieve the existing AllInCrunchiesImageController instance
+    final AllInCrunchiesImageController controller = Get.put(AllInCrunchiesImageController());
+
     return Scaffold(
       bottomNavigationBar: AllInCruchiesbottomAddToCart(crunchy: crunchy),
       body: SingleChildScrollView(
-          child: Column(children: [
-            AllInCrunchiesDetailImage(crunchy: crunchy,),
+        child: Column(
+          children: [
+            AllInCrunchiesDetailImage(crunchy: crunchy),
 
-            /// --- Detail Name
+            // Detail Name
             const Padding(padding: EdgeInsets.only(bottom: 5)),
 
-            /// --- Price,Title
+            // Price, Title
             AllInCruchiesMetaData(crunchy: crunchy),
-            const SizedBox(
-              height: 6,
-            ),
+            const SizedBox(height: 6),
+
+            // Section Heading
             const fSectionHeading(title: "Description", showActionButton: false),
             const SizedBox(height: 5),
+
+            // Description
             Padding(
-              padding: const EdgeInsets.only(
-                left: 20,
-              ),
+              padding: const EdgeInsets.only(left: 20),
               child: ReadMoreText(
                 crunchy.description ?? "",
-                //style: TextStyle(color: Colors.black54),
                 trimLines: 2,
                 trimMode: TrimMode.Line,
                 trimCollapsedText: "Show more",
@@ -56,15 +56,14 @@ class AllInCruchiesDetailScreen extends StatelessWidget {
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                 ),
-              ),),
-
-            const SizedBox(
-              height: fSizes.spaceBtwSections,
+              ),
             ),
 
-
-
-          ])),
+            // Spacer
+            const SizedBox(height: fSizes.spaceBtwSections),
+          ],
+        ),
+      ),
     );
   }
 }

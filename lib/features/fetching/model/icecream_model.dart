@@ -6,6 +6,8 @@ class IceModel {
   double? price;
   String title;
   bool? IceCreamtype;
+  final bool? isAvailable; // Make sure this matches the type of your data
+
 
   //BrandModel? brand;
   String? description;
@@ -13,6 +15,7 @@ class IceModel {
   // List<ProductVariationModel>? productVariations;
 
   IceModel({
+    this.isAvailable,
     required this.image,
     required this.id,
     this.IceCreamtype,
@@ -54,6 +57,8 @@ class IceModel {
       image: data["Image"],
       price: double.parse((data["Price"] ?? 0.0).toString()),
       description: data["Description"],
+      isAvailable: data['isAvailable'] == true,
+
     );
   }
 
@@ -67,6 +72,8 @@ class IceModel {
       image: data["Image"],
       price: double.parse((data["Price"] ?? 0.0).toString()),
       description: data["Description"],
+      isAvailable: data['isAvailable'] == true, // Adjusted this line
+
     );
   }
 }

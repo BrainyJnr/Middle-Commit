@@ -1,3 +1,4 @@
+import 'package:amazing/features/shop/screens/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -39,14 +40,14 @@ class _NavigationMenuState extends State<Navigation_Menu> {
             ? Colors.black
             : Colors.white,
         elevation: 0,
-        onPressed: () {},
+        onPressed: () => Get.to(CartScreen()) ,
         child: CircleAvatar(
           radius: 30.0, // Adjust the radius as needed
           backgroundColor: themeController.isDarkMode.value
               ? fColors.error
               : fColors.error,
           child: fCounterIcon(
-            onPressed: () {},
+           // onPressed: () {},
             iconColor: themeController.isDarkMode.value ? Colors.white : fColors
                 .white,
           ),

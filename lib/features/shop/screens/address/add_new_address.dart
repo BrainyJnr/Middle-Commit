@@ -1,3 +1,6 @@
+import 'package:amazing/features/shop/screens/address/controller/address_controller.dart';
+import 'package:amazing/utilis/helpers/helper_functions.dart';
+import 'package:amazing/utilis/validators/fvalidators.dart';
 import 'package:flutter/material.dart';
 import 'package:amazing/utilis/constants/colors.dart';
 import 'package:amazing/utilis/constants/sizes.dart';
@@ -9,6 +12,9 @@ class AddnewAddress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = fHelperFunctions.isDarkMode(context);
+    final controller = AddressController.instance;
+
     return Scaffold(
         appBar: fAppBar(
             showBackArrow: true,
@@ -27,6 +33,7 @@ class AddnewAddress extends StatelessWidget {
             child: Column(
               children: [
                 Form(
+                  key: controller.addressFormKey,
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -38,6 +45,8 @@ class AddnewAddress extends StatelessWidget {
                         height: 12,
                       ),
                       TextFormField(
+                          controller: controller.street,
+                          validator: (value) => fValidator.validateEmptyText("Street", value),
                           cursorColor: Colors.black.withOpacity(0.1),
                           expands: false,
                           decoration: InputDecoration(
@@ -56,20 +65,22 @@ class AddnewAddress extends StatelessWidget {
                             hintText: "Enter your street",
                             labelText: "Street",
                             labelStyle:
-                                const TextStyle(color: Colors.black, fontSize: 12),
-                            hintStyle: Theme.of(context).textTheme.bodySmall,
+                                 TextStyle(color: dark ? Colors.white : Colors.black54),
+                            hintStyle: Theme.of(context).textTheme.bodySmall!.apply(color: dark ? Colors.white : Colors.black54),
                           )),
                       const SizedBox(
                         height: 1,
                       ),
-                      const Text(
+                       Text(
                         "You can select a popular location closest to you",
-                        style: TextStyle(color: Colors.black54, fontSize: 12),
+                        style: TextStyle(color: dark ? Colors.white : Colors.black54, fontSize: 12),
                       ),
                       const SizedBox(
                         height: 12,
                       ),
                       TextFormField(
+                        controller: controller.phoneNumber,
+                        validator: (value) => fValidator.validateEmptyText("Phone Number", value),
                         expands: false,
                         cursorColor: Colors.black.withOpacity(0.1),
                         decoration: InputDecoration(
@@ -87,7 +98,7 @@ class AddnewAddress extends StatelessWidget {
                           hintText: "Enter your phone number",
                           labelText: "Phone Number",
                           labelStyle:
-                              const TextStyle(color: Colors.black, fontSize: 12),
+                               TextStyle(color: dark ? Colors.white : Colors.black54),
                           hintStyle: Theme.of(context).textTheme.bodySmall,
                         ),
                       ),
@@ -98,6 +109,7 @@ class AddnewAddress extends StatelessWidget {
                         SizedBox(
                             height: 300,
                             child: TextFormField(
+                                controller: controller.direction,
                               cursorColor: Colors.black.withOpacity(0.1),
                                 expands: false,
                                 //  minLines: 30,
@@ -115,8 +127,8 @@ class AddnewAddress extends StatelessWidget {
                                   hintText:
                                       "You can give extra details on location",
                                   labelText: "Direction (Optional)",
-                                  labelStyle: const TextStyle(
-                                      color: Colors.black, fontSize: 12),
+                                  labelStyle:  TextStyle(
+                                      color: dark ? Colors.white : Colors.black54, fontSize: 12),
                                   hintStyle:
                                       Theme.of(context).textTheme.bodySmall,
                                 ))),
@@ -134,7 +146,7 @@ class AddnewAddress extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8)),
                         backgroundColor: fColors.error,
                       ),
-                      onPressed: () {},
+                    onPressed: () => controller.addNewAddresses(),
                       child: const Text(
                         "Save And Proceed",
                         style: TextStyle(color: Colors.white),

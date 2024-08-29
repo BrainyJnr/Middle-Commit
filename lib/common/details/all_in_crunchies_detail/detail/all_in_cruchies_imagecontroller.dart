@@ -13,14 +13,12 @@ class AllInCrunchiesImageController extends GetxController {
     Set<String> images = {};
 
     // Load thumbnail image
-    images.add(crunchy.image);
+    if (crunchy.image.isNotEmpty) {
+      images.add(crunchy.image);
+      selectedAllCrunchiesImage.value = crunchy.image;
+    }
 
-    /// Assign Thumbnail as Selected Image
-    selectedAllCrunchiesImage.value = crunchy.image;
-
-    // Get all images from the Product Model if not null.
-    //if (food.image != null) {
-    //images.addAll(food.image!);
+    // Return images as a list
     return images.toList();
   }
 }

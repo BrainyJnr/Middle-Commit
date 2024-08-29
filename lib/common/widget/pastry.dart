@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../extraction/favorite_extraction/favorite_icon.dart';
+import '../../features/shop/screens/cart_items/widget/cart/pastry_add_to_cart.dart';
 import '../container/fContainer.dart';
 import '../details/pastry_details/pastry_detail_Screen.dart';
 import '../food_price/food_price.dart';
@@ -25,9 +27,7 @@ class pastry extends StatelessWidget {
     final dark = fHelperFunctions.isDarkMode(context);
     return SingleChildScrollView(
       child: GestureDetector(
-          onTap: () => Get.to(() => PastryDetailScreen(
-                pastry: Pastry
-              )),
+          onTap: () => Get.to(() => PastryDetailScreen(pastry: Pastry)),
           child: Container(
               width: 150,
               height: 240,
@@ -41,31 +41,27 @@ class pastry extends StatelessWidget {
               child: Column(children: [
                 /// --- Thumbnail, Wishist Button
                 fContainer(
-                  height: 140,
-                  backgroundColor: dark ? fColors.black : fColors.white,
-                  //padding: EdgeInsets.all(fSizes.sm),
-                  // backgroundColor: fColors.light,
-                  child: Stack(
-                    children: [
+                    height: 140,
+                    backgroundColor: dark ? fColors.black : fColors.white,
+                    //padding: EdgeInsets.all(fSizes.sm),
+                    // backgroundColor: fColors.light,
+                    child: Stack(children: [
                       /// ---- Thumbnail Image
                       fBannerImage(
                         height: 130,
                         width: 350,
+                        backgroundColor: dark ? fColors.grey.withOpacity(0.1) : Colors.grey[100]!,
                         fit: BoxFit.cover,
-                        image: Pastry.image,isNetworkImage: true,
+                        image: Pastry.image,
+                        isNetworkImage: true,
                       ),
 
                       /// --- Favourite IconButton
                       Positioned(
                           top: 0,
                           right: 0,
-                          child: fCircularIcon(
-                            icon: Iconsax.heart5,
-                            color: dark ? fColors.black : fColors.error,
-                          ))
-                    ],
-                  ),
-                ),
+                          child: fcircular_favorite_icon(dark: dark,productId: Pastry.id,))
+                    ])),
 
                 /// --- Details
                 Padding(
@@ -97,20 +93,7 @@ class pastry extends StatelessWidget {
                               ])),
                           Row(
                             children: [
-                              Container(
-                                alignment: Alignment.center,
-                                width: 140,
-                                height: 30,
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: fColors.error),
-                                    borderRadius: BorderRadius.circular(6),
-                                  color: dark ? fColors.black : fColors.white,
-                                ),
-                                child: const Text(
-                                  "Add to bag",
-                                  style: TextStyle(color: fColors.error),
-                                ),
-                              )
+                              pastry_add_to_cart(dark: dark,pastry: Pastry)
                             ],
                           ),
                         ]))
@@ -118,3 +101,4 @@ class pastry extends StatelessWidget {
     );
   }
 }
+

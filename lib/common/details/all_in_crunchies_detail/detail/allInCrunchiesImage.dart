@@ -10,6 +10,7 @@ import 'package:amazing/utilis/device/device_utility.dart';
 
 import '../../../../../common/appbar/fApp_bar.dart';
 import '../../../../../common/widgets/icons/f_circular_icon.dart';
+import '../../../../extraction/favorite_extraction/favorite_icon.dart';
 
 
 class AllInCrunchiesDetailImage extends StatelessWidget {
@@ -38,7 +39,7 @@ class AllInCrunchiesDetailImage extends StatelessWidget {
                       return CachedNetworkImage(
                         imageUrl: images,
                         progressIndicatorBuilder: (_, __, downloadProgress) =>
-                            CircularProgressIndicator(value: downloadProgress.progress,color: dark ? fColors.black : fColors.error,
+                            CircularProgressIndicator(value: downloadProgress.progress,color: dark ? Colors.transparent : Colors.transparent,
                             ),
                         fit: BoxFit.cover,
                         width: fDeviceUtilis.getScreenWidth(context),
@@ -48,13 +49,12 @@ class AllInCrunchiesDetailImage extends StatelessWidget {
             fAppBar(
               showBackArrow: true,
               actions: [
-                fCircularIcon(
-                  icon: Iconsax.heart5,
-                  color: dark ? fColors.black : fColors.error,
-                )
+                fcircular_favorite_icon(dark: dark,productId: crunchy.id,)])
+
+
               ],
             )
-          ],
-        ));
+
+        );
   }
 }

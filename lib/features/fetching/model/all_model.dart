@@ -61,7 +61,7 @@ class AllModel {
     final data = document.data() as Map<String, dynamic>;
     return AllModel(
       id: document.id,
-      title: data["Title"],
+      title: data["Title"] ?? "",
      // Foodtype: data["FoodType"] ?? false,
       image: data["Image"],
       price: double.parse((data["Price"] ?? 0.0).toString()),

@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:amazing/features/authentication/screens/loaders/floaders.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -23,7 +21,7 @@ class NetworkManager extends GetxController {
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
     _connectionStatus.value = result;
     if (_connectionStatus.value == ConnectivityResult.none) {
-      fLoaders.customToast(message: "No Internet Connection");
+   //   fLoaders.customToast(message: "No Internet Connection");
     }
   }
 

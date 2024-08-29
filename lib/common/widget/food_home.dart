@@ -12,14 +12,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../extraction/favorite_extraction/favorite_icon.dart';
+import '../../features/shop/screens/cart_items/widget/cart/food_add_to_cart.dart';
 import '../../features/shop/screens/product_detail/widget/product_detail.dart';
 import '../food_price/food_price.dart';
 import '../widgets/icons/f_circular_icon.dart';
 
 class food extends StatelessWidget {
-  const food({super.key, required this.foods});
+  const food({super.key, required this.foods, this.title});
 
   final FoodModel foods;
+  final String? title;
+
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +31,7 @@ class food extends StatelessWidget {
     final dark = fHelperFunctions.isDarkMode(context);
     return SingleChildScrollView(
       child: GestureDetector(
-        onTap: () => Get.to(() => ProductDetailScreen(foods: foods, protein: ProteinModel.empty(),)),
+        onTap: () => Get.to(() => ProductDetailScreen(foods: foods)),
 
         child: Container(
             width: 150,
@@ -46,7 +50,7 @@ class food extends StatelessWidget {
               /// --- Thumbnail, Wishist Button
               fContainer(
               height: 140,
-              backgroundColor:dark ? fColors.black : fColors.white,
+                backgroundColor: dark ? fColors.black : fColors.white,
 
               //padding: EdgeInsets.all(fSizes.sm),
               // backgroundColor: fColors.light,
@@ -57,7 +61,8 @@ class food extends StatelessWidget {
                   fBannerImage(
                     height: 130,
                     width: 350,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.cover,backgroundColor: dark ? fColors.grey.withOpacity(0.1) : Colors.grey[100]!,
+
                     image: foods.image,isNetworkImage: true,
                   ),
 
@@ -65,10 +70,7 @@ class food extends StatelessWidget {
                   Positioned(
                       top: 0,
                       right: 0,
-                      child: fCircularIcon(
-                        icon: Iconsax.heart5,
-                        color: dark ? fColors.black : fColors.error,
-                      ))
+                      child: fcircular_favorite_icon(dark: dark,productId: foods.id,))
                 ],
               ),
             ),
@@ -102,18 +104,7 @@ class food extends StatelessWidget {
                  Row(
                    children: [
                  GestureDetector(onTap: (){},
-                   child: Container(
-                      alignment: Alignment.center,
-                      width: 140,
-                      height: 30,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: fColors.error),
-                          borderRadius: BorderRadius.circular(6),
-                        color: dark ? fColors.darkerGrey : fColors.white,
-                      ),
-                      child: const Text(
-                        "Add to bag", style: TextStyle(color: fColors.error),),
-                    ),
+                   child: food_add_to_Cart(dark: dark, foods: foods,),
                  )
                 ],
               ),
@@ -126,4 +117,6 @@ class food extends StatelessWidget {
     );
   }
 }
+
+
 

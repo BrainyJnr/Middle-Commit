@@ -54,7 +54,7 @@ class CrunchesModel {
     final data = document.data() as Map<String, dynamic>;
     return CrunchesModel(
       id: document.id,
-      title: data["Title"],
+      title: data["Title"] ?? "",
       image: data["Image"],
       price: double.parse((data["Price"] ?? 0.0).toString()),
       description: data["Description"],

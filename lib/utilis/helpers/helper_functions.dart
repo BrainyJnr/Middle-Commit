@@ -86,7 +86,7 @@ class fHelperFunctions {
   static double screenWidth(){
     return MediaQuery.of(Get.context!).size.width;
   }
-  static String getFormattedDate(DateTime date, {String format = "tt dd MMM yyy"}){
+  static String getFormattedDate(DateTime date, {String format = "(dd MMM yyy)"}){
     return DateFormat(format).format(date);
   }
   static List<T> removeDuplicates<T>(List<T> list){

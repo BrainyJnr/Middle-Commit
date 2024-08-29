@@ -9,8 +9,8 @@ import 'package:amazing/utilis/device/device_utility.dart';
 
 import '../../../../../common/appbar/fApp_bar.dart';
 import '../../../../../common/widgets/icons/f_circular_icon.dart';
+import '../../../extraction/favorite_extraction/favorite_icon.dart';
 import 'image_controller_protein.dart';
-
 
 class ProteinDetailImage extends StatelessWidget {
   const ProteinDetailImage({
@@ -23,38 +23,45 @@ class ProteinDetailImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = fHelperFunctions.isDarkMode(context);
-    final controller = Get.put(ProteinImageController());
-    final images = controller.getProtineImages(protein);
-    return Container(
-        child: Stack(
-          children: [
-            /// Main Large Image
-            SizedBox(
-                height: 260,
-                child: Padding(
-                    padding: const EdgeInsets.all(1),
-                    child: Center(child: Obx(() {
-                      final images = controller.selectedProteinImage.value;
-                      return CachedNetworkImage(
-                        imageUrl: images,
-                        progressIndicatorBuilder: (_, __, downloadProgress) =>
-                            CircularProgressIndicator(value: downloadProgress.progress,color: dark ? fColors.black : fColors.error,
-                            ),
-                        fit: BoxFit.cover,
-                        width: fDeviceUtilis.getScreenWidth(context),
-                      );
-                    })))),
+    final ProteinImageController controller = Get.find<ProteinImageController>();
 
-            fAppBar(
-              showBackArrow: true,
-              actions: [
-                fCircularIcon(
-                  icon: Iconsax.heart5,
-                  color: dark ? fColors.black : fColors.error,
-                )
-              ],
-            )
-          ],
-        ));
+    // Fetch the image URL from the controller
+    final imageUrl = controller.getProteinImages(protein);
+
+    return Container(
+      child: Stack(
+        children: [
+          /// Main Large Image
+          SizedBox(
+            height: 260,
+            child: Padding(
+              padding: const EdgeInsets.all(1),
+              child: Center(
+                child: Obx(() {
+                  final imageUrl = controller.selectedProteinImage.value;
+                  return CachedNetworkImage(
+                    imageUrl: imageUrl,
+                    progressIndicatorBuilder: (_, __, downloadProgress) =>
+                        CircularProgressIndicator(
+                          value: downloadProgress.progress,
+                          color: dark ? Colors.transparent : Colors.transparent,
+                        ),
+                    fit: BoxFit.cover,
+                    width: fDeviceUtilis.getScreenWidth(context),
+                  );
+                }),
+              ),
+            ),
+          ),
+
+          fAppBar(
+            showBackArrow: true,
+            actions: [
+              fcircular_favorite_icon(dark: dark, productId: protein.id),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -13,14 +13,11 @@ class PastryImageController extends GetxController {
     Set<String> images = {};
 
     // Load thumbnail image
-    images.add(pastry.image);
+    if (pastry.image.isNotEmpty) {
+      images.add(pastry.image);
+      selectedPastryImage.value = pastry.image; // Update the selected image
+    }
 
-    /// Assign Thumbnail as Selected Image
-    selectedPastryImage.value = pastry.image;
-
-    // Get all images from the Product Model if not null.
-    //if (food.image != null) {
-    //images.addAll(food.image!);
     return images.toList();
   }
 }

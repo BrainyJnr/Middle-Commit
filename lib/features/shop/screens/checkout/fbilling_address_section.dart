@@ -1,3 +1,5 @@
+import 'package:amazing/features/shop/screens/address/address_screen.dart';
+import 'package:amazing/features/shop/screens/address/controller/address_controller.dart';
 import 'package:amazing/utilis/constants/colors.dart';
 import 'package:amazing/utilis/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +12,8 @@ class fBillingAddressSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final addressController = AddressController.instance;
+    final controller = AddressController.instance;
     final dark = fHelperFunctions.isDarkMode(context);
     return fRoundedContainer(
         padding: EdgeInsets.all(fSizes.md),
@@ -34,9 +38,9 @@ class fBillingAddressSection extends StatelessWidget {
                            Text("Home", maxLines:1, overflow:TextOverflow.ellipsis, style:Theme.of(context).textTheme.titleMedium),
                            SizedBox(height: fSizes.md / 2),
 
-                           Text("Douglas Street", maxLines:1, overflow:TextOverflow.ellipsis, style:Theme.of(context).textTheme.titleSmall),
+                           Text(controller.selectedAddress.value.street, maxLines:1, overflow:TextOverflow.ellipsis, style:Theme.of(context).textTheme.titleSmall),
                            SizedBox(height: fSizes.md / 2),
-                           Text("08153573951", maxLines:1, overflow:TextOverflow.ellipsis, style:Theme.of(context).textTheme.titleSmall),
+                           Text(controller.selectedAddress.value.phoneNumber, maxLines:1, overflow:TextOverflow.ellipsis, style:Theme.of(context).textTheme.titleSmall),
 
                          ])]
               )  );

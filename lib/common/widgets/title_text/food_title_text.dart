@@ -1,3 +1,4 @@
+import 'package:amazing/utilis/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 
 class fFoodTitleText extends StatelessWidget {
@@ -19,9 +20,10 @@ class fFoodTitleText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = fHelperFunctions.isDarkMode(context);
     return Text(
       title,
-      style: isLarge ?  Theme.of(context).textTheme.labelSmall : Theme.of(context).textTheme.labelMedium,
+      style: isLarge ?  Theme.of(context).textTheme.labelSmall : Theme.of(context).textTheme.labelMedium!.apply(color: dark ? Colors.white : Colors.black ),
       overflow: TextOverflow.ellipsis,
       maxLines: maxLines,
       textAlign: textAlign,

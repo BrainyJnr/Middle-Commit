@@ -13,14 +13,12 @@ class BreadImageController extends GetxController {
     Set<String> images = {};
 
     // Load thumbnail image
-    images.add(bread.image);
+    if (bread.image.isNotEmpty) {
+      images.add(bread.image);
+      // Assign Thumbnail as Selected Image
+      selectedBreadImage.value = bread.image;
+    }
 
-    /// Assign Thumbnail as Selected Image
-    selectedBreadImage.value = bread.image;
-
-    // Get all images from the Product Model if not null.
-    //if (food.image != null) {
-    //images.addAll(food.image!);
     return images.toList();
   }
 }

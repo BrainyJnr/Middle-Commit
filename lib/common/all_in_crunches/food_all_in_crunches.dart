@@ -12,12 +12,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../extraction/favorite_extraction/favorite_icon.dart';
 import '../widgets/image/all_in_crunches_images.dart';
 
 class food_all_in_crunches extends StatelessWidget {
   const food_all_in_crunches({
-    super.key, required this.crunch,
+    super.key,
+    required this.crunch,
   });
+
   final CrunchesModel crunch;
 
   @override
@@ -26,7 +29,8 @@ class food_all_in_crunches extends StatelessWidget {
     final controller = Crunchies_Controller.instance;
     return SingleChildScrollView(
         child: GestureDetector(
-            onTap: () => Get.to(() => AllInCruchiesDetailScreen(crunchy: crunch)),
+            onTap: () =>
+                Get.to(() => AllInCrunchiesDetailScreen(crunchy: crunch)),
             child: Container(
               width: fDeviceUtilis.getScreenWidth(context),
               height: 250,
@@ -39,21 +43,21 @@ class food_all_in_crunches extends StatelessWidget {
                 /// All in Crunches Image, Wishlist Button
                 Stack(children: [
                   fAllInCrunches(
-
                     fit: BoxFit.cover,
                     width: fDeviceUtilis.getScreenWidth(context),
                     height: 200,
-                    image: crunch.image,isNetworkImage: true,
+                    image: crunch.image,
+                    isNetworkImage: true,
                   ),
 
                   /// --- Favorite Icon Button
                   Positioned(
                       top: 0,
                       right: 0,
-                      child: fCircularIcon(
-                          icon: Iconsax.heart5,
-                          color: dark ? fColors.black : fColors.error,
-                          onPressed: () {})),
+                      child: fcircular_favorite_icon(
+                        dark: dark,
+                        productId: crunch.id,
+                      ))
                 ]),
 
                 /// --- Details
@@ -65,11 +69,13 @@ class food_all_in_crunches extends StatelessWidget {
                           Row(children: [
                             Padding(
                                 padding: const EdgeInsets.only(right: 5),
-                                child: fFoodTitleText(
-                                    title: crunch.title))
+                                child: fFoodTitleText(title: crunch.title))
                           ]),
                           Row(
-                            children: [foodprice(price:controller.getCrucnesPrice(crunch))],
+                            children: [
+                              foodprice(
+                                  price: controller.getCrucnesPrice(crunch))
+                            ],
                           ),
                         ])),
               ]),

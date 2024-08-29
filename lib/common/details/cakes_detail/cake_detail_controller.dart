@@ -13,14 +13,12 @@ class CakeImageController extends GetxController {
     Set<String> images = {};
 
     // Load thumbnail image
-    images.add(cake.image);
+    if (cake.image.isNotEmpty) {
+      images.add(cake.image);
+      // Assign Thumbnail as Selected Image
+      selectedCakeImage.value = cake.image;
+    }
 
-    /// Assign Thumbnail as Selected Image
-    selectedCakeImage.value = cake.image;
-
-    // Get all images from the Product Model if not null.
-    //if (food.image != null) {
-    //images.addAll(food.image!);
     return images.toList();
   }
 }

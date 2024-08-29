@@ -13,14 +13,12 @@ class IceCreamImageController extends GetxController {
     Set<String> images = {};
 
     // Load thumbnail image
-    images.add(ice.image);
+    if (ice.image.isNotEmpty) {
+      images.add(ice.image);
+      // Assign Thumbnail as Selected Image
+      selectedIceImage.value = ice.image;
+    }
 
-    /// Assign Thumbnail as Selected Image
-    selectedIceImage.value = ice.image;
-
-    // Get all images from the Product Model if not null.
-    //if (food.image != null) {
-    //images.addAll(food.image!);
     return images.toList();
   }
 }

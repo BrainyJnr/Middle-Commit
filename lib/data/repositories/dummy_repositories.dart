@@ -14,7 +14,7 @@ class dummyRepository extends GetxController {
       for (var item in category) {
         final file = await storage.getImageDataFromAssets(item.image);
 
-        final url = await storage.uploadImageData("category", file, item.name);
+        final url = await storage.uploadImageData("Ca", file, item.name);
 
         item.image = url;
 
