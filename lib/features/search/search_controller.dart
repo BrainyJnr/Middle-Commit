@@ -11,7 +11,7 @@ import '../fetching/model/icecream_model.dart';
 import '../fetching/model/pastry_model.dart';
 import '../fetching/model/promo_model.dart';
 import '../personalization/models/food_model.dart';
-import '../personalization/models/protein_model.dart'; // Import the async package for StreamGroup
+import '../personalization/models/protein_model.dart';
 
 
 

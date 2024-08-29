@@ -93,7 +93,7 @@ class SearchScreen extends StatelessWidget {
                       child: ListTile(
                         //  leading: Image.network(result., fit: BoxFit.cover),
                         title: Text(result.title),
-                        subtitle: Text('\$${result.price?.toStringAsFixed(2)}'),
+                        subtitle: Text('\u20A6${result.price?.toStringAsFixed(0)}'),
                       ),
                     );
                   } else if (result is ProteinModel) {
@@ -104,7 +104,7 @@ class SearchScreen extends StatelessWidget {
                       child: ListTile(
                         // leading: Image.network(result.imageUrl, fit: BoxFit.cover),
                         title: Text(result.title),
-                        subtitle: Text('\$${result.price?.toStringAsFixed(0)}'),
+                        subtitle: Text('\u20A6${result.price?.toStringAsFixed(0)}'),
                       ),
                     );
                   } else if (result is PastryModel) {
@@ -115,7 +115,7 @@ class SearchScreen extends StatelessWidget {
                       child: ListTile(
                         //  leading: Image.network(result.imageUrl, fit: BoxFit.cover),
                         title: Text(result.title),
-                        subtitle: Text('\$${result.price?.toStringAsFixed(0)}'),
+                        subtitle: Text('\u20A6${result.price?.toStringAsFixed(0)}'),
                       ),
                     );
                   } else if (result is CakeModel) {
@@ -126,7 +126,7 @@ class SearchScreen extends StatelessWidget {
                       child: ListTile(
                         //  leading: Image.network(result.imageUrl, fit: BoxFit.cover),
                         title: Text(result.title),
-                        subtitle: Text('\$${result.price?.toStringAsFixed(0)}'),
+                        subtitle: Text('\u20A6${result.price?.toStringAsFixed(0)}'),
                       ),
                     );
                   } else if (result is BreadModel) {
@@ -137,7 +137,7 @@ class SearchScreen extends StatelessWidget {
                       child: ListTile(
                         //  leading: Image.network(result.imageUrl, fit: BoxFit.cover),
                         title: Text(result.title),
-                        subtitle: Text('\$${result.price?.toStringAsFixed(0)}'),
+                        subtitle: Text('\u20A6${result.price?.toStringAsFixed(0)}'),
                       ),
                     );
                   } else if (result is IceModel) {
@@ -148,7 +148,7 @@ class SearchScreen extends StatelessWidget {
                       child: ListTile(
                         //  leading: Image.network(result.imageUrl, fit: BoxFit.cover),
                         title: Text(result.title),
-                        subtitle: Text('\$${result.price?.toStringAsFixed(0)}'),
+                        subtitle: Text('\u20A6${result.price?.toStringAsFixed(0)}'),
                       ),
                     );
                   } else if (result is shawarmaModel) {
@@ -159,7 +159,7 @@ class SearchScreen extends StatelessWidget {
                       child: ListTile(
                         //  leading: Image.network(result.imageUrl, fit: BoxFit.cover),
                         title: Text(result.title),
-                        subtitle: Text('\$${result.price?.toStringAsFixed(0)}'),
+                        subtitle: Text('\u20A6${result.price?.toStringAsFixed(0)}'),
                       ),
                     );
                   } else if (result is PromoModel) {
@@ -170,7 +170,7 @@ class SearchScreen extends StatelessWidget {
                       child: ListTile(
                         //  leading: Image.network(result.imageUrl, fit: BoxFit.cover),
                         title: Text(result.title),
-                        subtitle: Text('${result.price?.toStringAsFixed(0)}'),
+                        subtitle: Text('\u20A6${result.price?.toStringAsFixed(0)}'),
                       ),
                     );
                   } else if (result is DrinkModel) {
@@ -181,7 +181,7 @@ class SearchScreen extends StatelessWidget {
                       child: ListTile(
                         //  leading: Image.network(result.imageUrl, fit: BoxFit.cover),
                         title: Text(result.title),
-                        subtitle: Text('\$${result.price?.toStringAsFixed(0)}'),
+                        subtitle: Text('\u20A6${result.price?.toStringAsFixed(0)}'),
                       ),
                     );
                   } else {

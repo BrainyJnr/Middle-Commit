@@ -24,7 +24,7 @@ class DrinkDetailScreen extends StatelessWidget {
     final DrinkImageController controller = Get.put(DrinkImageController());
 
     return Scaffold(
-      bottomNavigationBar: drink_add_to_cart(drink: drink, ),
+      bottomNavigationBar: DrinkbottomAddToCart(drink: drink, ),
       body: SingleChildScrollView(
         child: Column(
           children: [
